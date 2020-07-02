@@ -13,37 +13,32 @@
 linked_list* merge_sorted(linked_list* a, linked_list* b)
 {
     linked_list* merged = calloc(1, sizeof(linked_list));
-
-    int cur_a = 0;
-    int cur_b = 0;
-    int a_len = len(a);
-    int b_len = len(b);
     
-    while (cur_a + cur_b < a_len + b_len)
+    // Leave from head
+    a = a->next;
+    b = b->next;
+
+    while (a != NULL || b != NULL)
     {
-        if (cur_a < a_len && cur_b >= b_len)
+        if (b == NULL)
         {
-            push(merged, a->next->el);
+            push(merged, a->el);
             a = a->next;
-            cur_a++;
         }
-        else if (cur_b < b_len && cur_a >= a_len)
+        else if (a == NULL)
         {
-            push(merged, b->next->el);
+            push(merged, b->el);
             b = b->next;
-            cur_b++;
         }
-        else if (a->next->el >= b->next->el)
+        else if (a->el >= b->el)
         {
-            push(merged, a->next->el);
+            push(merged, a->el);
             a = a->next;
-            cur_a++;
         }
-        else if (b->next->el >= a->next->el)
+        else if (b->el >= a->el)
         {
-            push(merged, b->next->el);
+            push(merged, b->el);
             b = b->next;
-            cur_b++;
         }
     }
 
